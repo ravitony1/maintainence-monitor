@@ -1,0 +1,32 @@
+{{# if user }}
+    <h1>Welcome {{ user }}</h1>
+    <h3>Current jobs</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Contractor</th>
+            <th></th>
+        </tr>
+        {{#each jobs}}
+            <tr>
+                {{#with this}}
+                    <td>{{id}}</td>
+                    <td>{{des}}</td>
+                    <td id="{{id}}-job-status">{{status}}</td>
+                    <td>{{contratorid}}</td>
+                    <td><a><button type="button" class="btn btn-primary btn-xs {{id }}-req-btn req-btn {{#if (ifequal status "not-assigned" "denied")}}show-btn{{/if }}" onclick="sendRequest('{{contratorid}}','{{id}}')">Send Request</button></a></td>
+                {{/with}}
+
+            </tr>
+        {{/each}}
+    </table>
+    <div class="container" >
+    <h3> Job Description</h3>
+    <textarea class="form-control job-des" rows="5" style="width: 30%"></textarea>
+    <a href="#"><button type="button" class="btn btn-primary btn-sm" style="margin-top: 10px" onclick="createJob()">Create Job</button></a>
+    </div>
+{{else}}
+    <h1>Unauthorized User</h1>
+{{/if}}
